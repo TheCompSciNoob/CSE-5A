@@ -8,7 +8,6 @@
  */
 
 #include <stdio.h>
-#include <stdbool.h>
 
 #define SALES_TAX_RATE .0775
 #define KG_TO_LB 2.2046
@@ -16,7 +15,8 @@
 /*
  * Runs the book order program.
  */
-int main() {
+int main()
+{
     printf("Part 1:\n\n");
 
     char firstInitial;
@@ -65,25 +65,31 @@ int main() {
     int numConversions = 0;
     scanf("%d", &numConversions);
 
-    for (int i = 0; i < numConversions; i++) {
+    int i;
+    for (i = 0; i < numConversions; i++)
+    {
         double weight = 0;
         char unit;
         printf("\n[#%d] Enter the weight you want to convert: ", i + 1);
         scanf("%lf", &weight);
         getchar();
 
-        bool hasValidUnit = false;
-        while(!hasValidUnit) {
+        _Bool hasValidUnit = 0;
+        while (!hasValidUnit)
+        {
             printf("Is this a pound or kilogram weight? [P/K]: ");
             scanf("%c", &unit);
             getchar();
-            if (unit == 'K' || unit == 'k') {
+            if (unit == 'K' || unit == 'k')
+            {
                 printf("%8.2f kg = %8.2f lb\n", weight, weight * KG_TO_LB);
-                hasValidUnit = true;
-            } else if (unit == 'P' || unit == 'p'){
+                hasValidUnit = 1;
+            } else if (unit == 'P' || unit == 'p')
+            {
                 printf("%8.2f lb = %8.2f kg\n", weight, weight / KG_TO_LB);
-                hasValidUnit = true;
-            } else {
+                hasValidUnit = 1;
+            } else
+            {
                 printf("Invalid entry!\n");
             }
         }
