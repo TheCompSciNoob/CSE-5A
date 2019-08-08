@@ -55,7 +55,8 @@ int main() {
 
     double weight = 0;
     char unit;
-    for (int i = 0; i < numConversions; i++) {
+    int i;
+    for (i = 0; i < numConversions; i++) {
         printf("\n[#%d] Enter the weight you want to convert: ", i + 1);
         scanf("%lf", &weight);
         getchar();
