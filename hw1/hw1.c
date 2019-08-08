@@ -15,7 +15,8 @@
 /*
  * Runs the book order program.
  */
-int main() {
+int main()
+{
     printf("Part 1:\n\n");
 
     char firstInitial;
@@ -44,7 +45,8 @@ int main() {
     totalCost = bookCost + tax + shippingCost;
 
     printf("\nReceipt for %c. %c.:\n", firstInitial, lastInitial);
-    printf("Book:\t\t$%8.2f\nTax:\t\t$%8.2f\nShipping:\t$%8.2f\nTotal:\t\t$%8.2f\n", bookCost, tax, shippingCost, totalCost);
+    printf("Book:\t\t$%8.2f\nTax:\t\t$%8.2f\nShipping:\t$%8.2f\nTotal:\t\t$%8.2f\n", bookCost, tax, shippingCost,
+           totalCost);
 
     printf("\nPart 2:\n\n");
 
@@ -56,16 +58,19 @@ int main() {
     double weight = 0;
     char unit;
     int i;
-    for (i = 0; i < numConversions; i++) {
+    for (i = 0; i < numConversions; i++)
+    {
         printf("\n[#%d] Enter the weight you want to convert: ", i + 1);
         scanf("%lf", &weight);
         getchar();
         printf("Is this a pound or kilogram weight? [P/K]: ");
         scanf("%c", &unit);
         getchar();
-        if (unit == 'K' || unit == 'k') {
+        if (unit == 'K' || unit == 'k')
+        {
             printf("%8.2f kg = %8.2f lb\n", weight, weight * KG_TO_LB);
-        } else {
+        } else
+        {
             printf("%8.2f lb = %8.2f kg\n", weight, weight / KG_TO_LB);
         }
     }
