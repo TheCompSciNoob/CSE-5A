@@ -1,0 +1,3 @@
+C:/Users/kyros/CLionProjects/CSE-5A/hw1/cmake-build-debug-cse-dev-c/CMakeFiles/hw1.dir
+C:/Users/kyros/CLionProjects/CSE-5A/hw1/cmake-build-debug-cse-dev-c/CMakeFiles/edit_cache.dir
+C:/Users/kyros/CLionProjects/CSE-5A/hw1/cmake-build-debug-cse-dev-c/CMakeFiles/rebuild_cache.dir
