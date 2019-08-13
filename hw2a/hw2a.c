@@ -11,7 +11,12 @@
 
 #define PIZZA_COST 10.0
 #define TOPPING_COST 1.25
-#define NUM_OPTIONS 10
+
+struct Option
+{
+    char name[25];
+    char action[25];
+};
 
 /*
  * Customize a pizza and calculate the cost of tye pizza based on the number of toppings selected.
@@ -23,28 +28,29 @@ int main()
     printf("Additional toppings cost $%.2f each.\n\n", TOPPING_COST);
 
     //list of options in an array
-    char options[NUM_OPTIONS][20] = { //20 = size of strings in array
-            "Place Order",
-            "Remove all toppings",
-            "Add extra cheese",
-            "Add pepperoni",
-            "Add sausage",
-            "Add bacon",
-            "Add mushrooms",
-            "Add pineapple",
-            "Add bell peppers",
-            "Add olives"
+    struct Option options[] = {
+            {.name = "Place Order", .action = "Placing Order"},
+            {.name = "Remove all toppings", .action = "All toppings removed"},
+            {.name = "Add extra cheese", .action = "Adding extra cheese"},
+            {.name = "Add pepperoni", .action = "Adding pepperoni"},
+            {.name = "Add sausage", .action = "Adding sausage"},
+            {.name = "Add bacon", .action = "Adding bacon"},
+            {.name = "Add mushrooms", .action = "Adding mushrooms"},
+            {.name = "Add pineapple", .action = "Add pineapple"},
+            {.name = "Add bell peppers", .action = "Add bell peppers"},
+            {.name = "Add olives", .action = "Adding olives"}
     };
+    int numOptions = sizeof(options) / sizeof(options[0]); //size of array
 
     int orderChoice = -1, numToppings = 0;
     double totalCost = PIZZA_COST;
     while (1)
     {
         //Print out possible options with for loop
-        unsigned int optionIndex;
-        for (optionIndex = 0; optionIndex < NUM_OPTIONS; optionIndex++)
+        int optionIndex;
+        for (optionIndex = 0; optionIndex < numOptions; optionIndex++)
         {
-            printf("%d) %s\n", optionIndex, options[optionIndex]);
+            printf("%d) %s\n", optionIndex, options[optionIndex].name);
         }
 
         //Ask user for input and process order
@@ -61,14 +67,14 @@ int main()
             //remove all toppings
             numToppings = 0;
             totalCost = PIZZA_COST;
-            printf("%s\n", options[orderChoice]);
+            printf("%s\n", options[orderChoice].action);
             printf("Current price: %.2f\n\n", totalCost);
-        } else if (orderChoice >= 2 && orderChoice <= 9)
+        } else if (orderChoice >= 2 && orderChoice < numOptions)
         {
             //add topping
             numToppings++;
             totalCost += TOPPING_COST;
-            printf("%s\n", options[orderChoice]);
+            printf("%s\n", options[orderChoice].action);
             printf("Current price: %.2f\n\n", totalCost);
         } else
         {
