@@ -5,18 +5,21 @@
  * Sources of help: None
  *
  * Creates a receipt for a book order, including the student's first and last initials, book cost, and total cost.
+ * Makes weight conversions between KG and LB.
  */
 
 #include <stdio.h>
 
 #define SALES_TAX_RATE .0775
-#define KG_TO_LB 2.2046
+#define KG_TO_LB 2.2046 //conversion between KG and LB
 
 /*
- * Runs the book order program.
+ * Calculates the total cost of a book order.
+ * Perform weight conversions from KG to LB or LB to KG.
  */
 int main()
 {
+    //Part 1
     printf("Part 1:\n\n");
 
     char firstInitial;
@@ -28,28 +31,29 @@ int main()
     double totalCost;
 
     printf("Enter the first letter of your first name: ");
-    firstInitial = getchar();
+    firstInitial = getchar(); //user inputs first initial
     getchar();
 
     printf("Enter the first letter of your last name: ");
-    lastInitial = getchar();
+    lastInitial = getchar(); //user inputs last initial
     getchar();
 
     printf("Enter the cost of the book: ");
-    scanf("%lf", &bookCost);
+    scanf("%lf", &bookCost); //user inputs cost of the book
     getchar();
 
-    printf("Enter the quantity of books: ");
+    printf("Enter the quantity of books: "); //user inputs number of books purchased
     scanf("%d", &bookQuantity);
     getchar();
 
     printf("Enter the shipping cost: ");
-    scanf("%lf", &shippingCost);
+    scanf("%lf", &shippingCost);  //user inputs shipping cost of the order
     getchar();
 
-    tax = bookCost * bookQuantity * SALES_TAX_RATE;
-    totalCost = bookCost * bookQuantity + tax + shippingCost;
+    tax = bookCost * bookQuantity * SALES_TAX_RATE; //calculate tax from book cost
+    totalCost = bookCost * bookQuantity + tax + shippingCost;  //calculate total cost of book order
 
+    //print receipt
     printf("\nReceipt for %c. %c.:\n", firstInitial, lastInitial);
     printf("Book:\t\t$%8.2f\nQuantity:\t %8d\nTax:\t\t$%8.2f\nShipping:\t$%8.2f\nTotal:\t\t$%8.2f\n",
            bookCost,
@@ -59,42 +63,45 @@ int main()
            totalCost
     );
 
+    //Part 2
     printf("\nPart 2:\n\n");
 
     printf("How many weight conversions would you like to perform? ");
     int numConversions = 0;
-    scanf("%d", &numConversions);
+    scanf("%d", &numConversions); //user inputs number of weight conversions
 
+    //continue to make conversions until the number of conversions requested is reached
     int i;
     for (i = 0; i < numConversions; i++)
     {
         double weight = 0;
         char unit;
         printf("\n[#%d] Enter the weight you want to convert: ", i + 1);
-        scanf("%lf", &weight);
+        scanf("%lf", &weight); //user inputs weight
         getchar();
 
         _Bool hasValidUnit = 0;
-        while (!hasValidUnit)
+        while (!hasValidUnit) //keep asking user for weight unit until a valid unit is inputted
         {
             printf("Is this a pound or kilogram weight? [P/K]: ");
-            scanf("%c", &unit);
+            scanf("%c", &unit); //user inputs unit (KG or LB)
             getchar();
             if (unit == 'K' || unit == 'k')
             {
-                printf("%8.2f kg = %8.2f lb\n", weight, weight * KG_TO_LB);
+                printf("%8.2f kg = %8.2f lb\n", weight, weight * KG_TO_LB); //KG to LB calculation
                 hasValidUnit = 1;
             } else if (unit == 'P' || unit == 'p')
             {
-                printf("%8.2f lb = %8.2f kg\n", weight, weight / KG_TO_LB);
+                printf("%8.2f lb = %8.2f kg\n", weight, weight / KG_TO_LB);  //LB to KG calculation
                 hasValidUnit = 1;
             } else
             {
-                printf("Invalid entry!\n");
+                printf("Invalid entry!\n"); //invalid input, loop continues
             }
         }
     }
 
+    //keep the program alive to let user see the output
     printf("\nPress ENTER to quit!");
     getchar();
     return 0;
