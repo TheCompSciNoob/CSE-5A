@@ -3,4 +3,4 @@ project(hw2b C)
 
 set(CMAKE_C_STANDARD 90)
 
-add_executable(hw2b main.c)
+add_executable(hw2b hw2b.c)
