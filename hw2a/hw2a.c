@@ -12,6 +12,10 @@
 #define PIZZA_COST 10.0
 #define TOPPING_COST 1.25
 
+/*
+ * Map option names to actions
+ * e.g. "add extra cheese" to "adding extra cheese"
+ */
 struct Option
 {
     char name[25];
@@ -28,6 +32,7 @@ int main()
     printf("Additional toppings cost $%.2f each.\n\n", TOPPING_COST);
 
     //list of options in an array
+    //map name of option to action of option, e.g. "add extra cheese" to "adding extra cheese"
     struct Option options[] = {
             {.name = "Place Order", .action = "Placing Order"},
             {.name = "Remove all toppings", .action = "All toppings removed"},
@@ -40,15 +45,16 @@ int main()
             {.name = "Add bell peppers", .action = "Add bell peppers"},
             {.name = "Add olives", .action = "Adding olives"}
     };
-    int numOptions = sizeof(options) / sizeof(options[0]); //size of array
+    int NUM_OPTIONS = sizeof(options) / sizeof(options[0]); //size of array calculation
 
+    //pizza order cost calculation
     int orderChoice = -1, numToppings = 0;
     double totalCost = PIZZA_COST;
     while (1)
     {
         //Print out possible options with for loop
         int optionIndex;
-        for (optionIndex = 0; optionIndex < numOptions; optionIndex++)
+        for (optionIndex = 0; optionIndex < NUM_OPTIONS; optionIndex++)
         {
             printf("%d) %s\n", optionIndex, options[optionIndex].name);
         }
@@ -69,7 +75,7 @@ int main()
             totalCost = PIZZA_COST;
             printf("%s\n", options[orderChoice].action);
             printf("Current price: %.2f\n\n", totalCost);
-        } else if (orderChoice >= 2 && orderChoice < numOptions)
+        } else if (orderChoice >= 2 && orderChoice < NUM_OPTIONS)
         {
             //add topping
             numToppings++;
