@@ -1,5 +1,5 @@
 /*
- * File: hw2b.c
+ * File: ec_hw2b.c
  * Name: Chi Chow
  * DateL August 13th, 2019
  * Sources of help: None
@@ -14,14 +14,28 @@
 
 //Function prototypes
 void displayMenu();
+
 char getCharInput();
+
 double getDoubleInput();
+
 double areaSquare(double width);
+
 double areaRectangle(double width, double height);
+
 double areaCircle(double radius);
+
 double surfaceAreaCube(double width);
+
 double surfaceAreaCylinder(double radius, double height);
+
 double volumeCube(double width);
+
+double volumeSphere(double radius);
+
+double volumeCylinder(double radius, double height);
+
+double volumeRectangularPrism(double length, double width, double height);
 
 /*
  * Calculate the area, surface area, and volume of different shapes.
@@ -33,7 +47,7 @@ int main()
     {
         displayMenu();
         char calculatorChoice = getCharInput();
-        double width = 0, height = 0, radius = 0;
+        double width = 0, height = 0, radius = 0, length = 0;
         switch (calculatorChoice)
         {
             case 'q':
@@ -74,6 +88,27 @@ int main()
                 width = getDoubleInput();
                 printf("Result: %.2f meters\n\n", volumeCube(width));
                 break;
+            case '7':
+                printf("Enter radius: ");
+                radius = getDoubleInput();
+                printf("Result: %.2f meters\n\n", volumeSphere(radius));
+                break;
+            case '8':
+                printf("Enter radius: ");
+                radius = getDoubleInput();
+                printf("Enter height: ");
+                height = getDoubleInput();
+                printf("Result: %.2f meters\n\n", volumeCylinder(radius, height));
+                break;
+            case '9':
+                printf("Enter length: ");
+                length = getDoubleInput();
+                printf("Enter width: ");
+                width = getDoubleInput();
+                printf("Enter height: ");
+                height = getDoubleInput();
+                printf("Result: %.2f meters\n\n", volumeRectangularPrism(length, width, height));
+                break;
             default: //catch invalid inputs
                 printf("Invalid choice\n\n");
                 break;
@@ -100,7 +135,10 @@ void displayMenu()
             "Area of a Circle",
             "Surface Area of a Cube",
             "Surface Area of a Cylinder",
-            "Volume of a Cube"
+            "Volume of a Cube",
+            "Volume of a Sphere",
+            "Volume of a Cylinder",
+            "Volume of a Rectangular Prism"
     };
 
     //print options
@@ -181,4 +219,28 @@ double surfaceAreaCylinder(double radius, double height)
 double volumeCube(double width)
 {
     return pow(width, 3);
+}
+
+/*
+ * Calculate volume of sphere.
+ */
+double volumeSphere(double radius)
+{
+    return (4.0 / 3.0) * radius * areaCircle(radius);
+}
+
+/*
+ * Calculate volume of cylinder.
+ */
+double volumeCylinder(double radius, double height)
+{
+    return areaCircle(radius) * height;
+}
+
+/*
+ * Calculate volume of rectangular prism.
+ */
+double volumeRectangularPrism(double length, double width, double height)
+{
+    return length * areaRectangle(width, height);
 }
