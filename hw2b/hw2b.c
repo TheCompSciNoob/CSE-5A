@@ -94,7 +94,7 @@ int main()
 void displayMenu()
 {
     //list of options
-    char options[][30] = { //20 = length of strings in array
+    char options[][30] = { //length of strings in array
             "Area of a Square",
             "Area of a Rectangle",
             "Area of a Circle",
