@@ -11,6 +11,7 @@
 
 #define PIZZA_COST 10.0
 #define TOPPING_COST 1.25
+#define MAX_TOPPINGS 6
 
 /*
  * Map option names to actions
@@ -28,8 +29,9 @@ struct Option
 int main()
 {
     printf("Pizza! Pizza!\n");
-    printf("Cheese pizza costs $%.2f.", PIZZA_COST);
-    printf("Additional toppings cost $%.2f each.\n\n", TOPPING_COST);
+    printf("Cheese pizza costs $%.2f.\n", PIZZA_COST);
+    printf("Additional toppings cost $%.2f.\n", TOPPING_COST);
+    printf("You can add up to 6 toppings.\n\n");
 
     //list of options in an array
     //map name of option to action of option, e.g. "add extra cheese" to "adding extra cheese"
@@ -77,11 +79,17 @@ int main()
             printf("Current price: %.2f\n\n", totalCost);
         } else if (orderChoice >= 2 && orderChoice < NUM_OPTIONS)
         {
-            //add topping
-            numToppings++;
-            totalCost += TOPPING_COST;
-            printf("%s\n", options[orderChoice].action);
-            printf("Current price: %.2f\n\n", totalCost);
+            if (numToppings < MAX_TOPPINGS)
+            {
+                //add topping if there are less than 6 toppings
+                numToppings++;
+                totalCost += TOPPING_COST;
+                printf("%s\n", options[orderChoice].action);
+                printf("Current price: %.2f\n\n", totalCost);
+            } else
+            {
+                printf("Maximum toppings reached \n\n");
+            }
         } else
         {
             //catch invalid inputs

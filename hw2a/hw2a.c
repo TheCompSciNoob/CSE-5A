@@ -28,7 +28,7 @@ struct Option
 int main()
 {
     printf("Pizza! Pizza!\n");
-    printf("Cheese pizza costs $%.2f.", PIZZA_COST);
+    printf("Cheese pizza costs $%.2f.\n", PIZZA_COST);
     printf("Additional toppings cost $%.2f each.\n\n", TOPPING_COST);
 
     //list of options in an array
