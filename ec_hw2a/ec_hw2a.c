@@ -19,8 +19,8 @@
  */
 struct Option
 {
-    char name[25];
-    char action[25];
+    char name[25]; //string with defined length
+    char action[25]; //string with defined length
 };
 
 /*
@@ -36,7 +36,7 @@ int main()
     //list of options in an array
     //map name of option to action of option, e.g. "add extra cheese" to "adding extra cheese"
     struct Option options[] = {
-            {.name = "Place Order", .action = "Placing Order"},
+            {.name = "Place Order", .action = ""}, //no action for place order
             {.name = "Remove all toppings", .action = "All toppings removed"},
             {.name = "Add extra cheese", .action = "Adding extra cheese"},
             {.name = "Add pepperoni", .action = "Adding pepperoni"},
