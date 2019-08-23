@@ -36,7 +36,7 @@ int main()
     double inputDollars;
     getValidNumber(&inputDollars);
     printf("Converting %.2f dollar(s)...\n", inputDollars);
-    int pennies = (int) (inputDollars * 100);
+    int pennies = (int) (inputDollars * 100); //convert to pennies for calculation
 
     //convert to dollars, quarters, dimes, nickels, pennies
     int dollars, quarters, dimes, nickels;
