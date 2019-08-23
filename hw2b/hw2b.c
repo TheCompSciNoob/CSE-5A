@@ -1,7 +1,7 @@
 /*
  * File: hw2b.c
  * Name: Chi Chow
- * DateL August 13th, 2019
+ * Date: August 13th, 2019
  * Sources of help: None
  *
  * Calculate the area, surface area, and volume of different shapes.

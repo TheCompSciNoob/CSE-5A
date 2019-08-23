@@ -1,7 +1,7 @@
 /*
  * File: hw2a.c
  * Name: Chi Chow
- * DateL August 13th, 2019
+ * Date: August 13th, 2019
  * Sources of help: None
  *
  * Customize a pizza and calculate the cost of tye pizza based on the number of toppings selected.
