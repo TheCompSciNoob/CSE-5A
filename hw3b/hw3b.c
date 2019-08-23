@@ -1,3 +1,12 @@
+/*
+ * File: hw3b.c
+ * Name: Chi Chow
+ * Date: August 22nd, 2019
+ * Sources of help: None
+ *
+ * Collects a set of students' grades, displays them to the screen, and performs other operations on those grades.
+ */
+
 #include <stdio.h>
 
 #define SIZE 10
@@ -18,6 +27,9 @@ void addBonusPoints(int arr[], int length, int points);
 
 void setValue(int arr[], int index, int value);
 
+/*
+ * Collects a set of students' grades, displays them to the screen, and performs other operations on those grades.
+ */
 int main()
 {
     //read grades
@@ -37,7 +49,7 @@ int main()
     addBonusPoints(grades, SIZE, points);
     displayArray(grades, SIZE);
 
-    //add grade
+    //change grade
     printf("\n");
     int studentNum, studentGrade;
     while (1)
@@ -60,6 +72,10 @@ int main()
     getchar();
 }
 
+/*
+ * Tries to get an integer input from the user.
+ * If the user gives and invalid input, return false.
+ */
 _Bool enterNumber(int *pNumber)
 {
     int result = scanf("%d", pNumber);
@@ -85,6 +101,9 @@ void getValidNumber(int *pNumber)
     }
 }
 
+/*
+ * Reads int array input from user by calling scanf SIZE times.
+ */
 void readArray(int arr[], int length)
 {
     int i;
@@ -94,43 +113,58 @@ void readArray(int arr[], int length)
     }
 }
 
+/*
+ * Prints all grades.
+ */
 void displayArray(int arr[], int length)
 {
     printf("List of grades: ");
     int i;
-    for (i = 0; i < length; i++)
+    for (i = 0; i < length; i++) //loop through all elements and print
     {
         printf("%d ", arr[i]);
     }
     printf("\n");
 }
 
+/*
+ * Reverses the grades in the array.
+ */
 void reverseGrades(int arr[], int length)
 {
     printf("\nReversing the grades.\n");
     int i, half = length / 2;
-    for (i = 0; i < half; i++)
+    for (i = 0; i < half; i++) //loop through half of the array and swap with the other half
     {
-        swapElements(arr, i, length - i - 1); //offset of 1
+        swapElements(arr, i, length - i - 1); //last element is at SIZE - 1
     }
 }
 
+/*
+ * Swap the position of two elements in an array.
+ */
 void swapElements(int arr[], int i, int j)
 {
-    int temp = arr[i];
+    int temp = arr[i]; //temporary to store value of arr[i]
     arr[i] = arr[j];
     arr[j] = temp;
 }
 
+/*
+ * Add bonus points to all grades.
+ */
 void addBonusPoints(int arr[], int length, int points)
 {
     int i;
-    for (i = 0; i < length; i++)
+    for (i = 0; i < length; i++) //loop through and add points to each
     {
         arr[i] += points;
     }
 }
 
+/*
+ * Set the value of an element on the array.
+ */
 void setValue(int arr[], int index, int value)
 {
     arr[index] = value;
