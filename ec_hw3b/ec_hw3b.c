@@ -1,5 +1,5 @@
 /*
- * File: hw3b.c
+ * File: ec_hw3b.c
  * Name: Chi Chow
  * Date: August 22nd, 2019
  * Sources of help: None
@@ -180,6 +180,9 @@ void setValue(int arr[], int index, int value)
     arr[index] = value;
 }
 
+/*
+ * Sort grades in ascending order.
+ */
 void sortGrades(int arr[], int length)
 {
     int i, j;
@@ -195,6 +198,9 @@ void sortGrades(int arr[], int length)
     }
 }
 
+/*
+ * Swap grades with pointers.
+ */
 void swapGrades(int *p1, int *p2)
 {
     int temp = *p1; //temporary to store value of p1
