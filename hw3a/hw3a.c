@@ -64,7 +64,7 @@ int main()
     }
 
     //keep alive to see output
-    printf("\nPress Enter to quit!");
+    printf("\nPress ENTER to exit!");
     getchar();
 }
 
