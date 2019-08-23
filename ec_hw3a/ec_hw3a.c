@@ -1,5 +1,5 @@
 /*
- * File: hw3a.c
+ * File: ec_hw3a.c
  * Name: Chi Chow
  * Date: August 22nd, 2019
  * Sources of help: None
@@ -14,9 +14,9 @@
 #define PENNIES_PER_DIME 10
 #define PENNIES_PER_NICKEL 5
 
-_Bool enterNumber(int *pNumber);
+_Bool enterNumber(double *pNumber);
 
-void getValidNumber(int *pNumber);
+void getValidNumber(double *pNumber);
 
 void getDollars(int *pDollars, int *pPennies);
 
@@ -31,17 +31,12 @@ void getNickels(int *pNickels, int *pPennies);
  */
 int main()
 {
-    //get number of pennies from user
-    printf("Enter the number of pennies: ");
-    int pennies;
-    getValidNumber(&pennies);
-    if (pennies == 1) //complicated English makes life harder
-    {
-        printf("Converting %d penny...\n", pennies);
-    } else
-    {
-        printf("Converting %d pennies...\n", pennies);
-    }
+    //get number of dollars from user
+    printf("Enter the number of dollars: ");
+    double inputDollars;
+    getValidNumber(&inputDollars);
+    printf("Converting %.2f dollar(s)...\n", inputDollars);
+    int pennies = (int) (inputDollars * 100);
 
     //convert to dollars, quarters, dimes, nickels, pennies
     int dollars, quarters, dimes, nickels;
@@ -72,9 +67,9 @@ int main()
  * Tries to get an integer input from the user.
  * If the user gives and invalid input, return false.
  */
-_Bool enterNumber(int *pNumber)
+_Bool enterNumber(double *pNumber)
 {
-    int result = scanf("%d", pNumber);
+    int result = scanf("%lf", pNumber);
     getchar();
     return result == 1;
 }
@@ -82,7 +77,7 @@ _Bool enterNumber(int *pNumber)
 /*
  * Infinite loop that repeatedly prompts for input until input is an integer.
  */
-void getValidNumber(int *pNumber)
+void getValidNumber(double *pNumber)
 {
     while (1)
     {
