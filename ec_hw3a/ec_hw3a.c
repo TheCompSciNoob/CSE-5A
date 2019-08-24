@@ -79,16 +79,9 @@ _Bool enterNumber(double *pNumber)
  */
 void getValidNumber(double *pNumber)
 {
-    while (1)
+    while (enterNumber(pNumber) != 1 || *pNumber < 0)
     {
-        _Bool result = enterNumber(pNumber);
-        if (result)
-        {
-            break;
-        } else
-        {
-            printf("Invalid number. Try again: ");
-        }
+        printf("Invalid number. Try again: ");
     }
 }
 
