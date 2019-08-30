@@ -70,7 +70,7 @@ int main()
                 break;
             case 'q':
             case 'Q':
-                printf("Goodbye!\n");
+                printf("Goodbye!\n\n");
                 done = 1;
                 break;
             default:
@@ -79,6 +79,9 @@ int main()
         }
         displayList(array, length);
     }
+
+    printf("Press ENTER to exit!");
+    getchar();
 
     return 0;
 }
