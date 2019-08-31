@@ -3,6 +3,7 @@
 #include <ctype.h>
 
 #define BUFFER 100
+#define ENDING "ay"
 
 /*
  * File: hw4b.c
@@ -47,7 +48,7 @@ int main()
             case 'q':
             case 'Q':
                 done = 1;
-                printf("Exiting...\n\n");
+                printf("\nExiting...\n");
                 break;
             default:
                 printf("\nInvalid command\n\n");
@@ -119,13 +120,13 @@ void translatePhrase(_Bool translateEnglish)
 void englishToPigLatin(char englishWord[], char pigWord[])
 {
     int length = strlen(englishWord);
-    char *pP = pigWord, ending[] = "ay";
+    char *pP = pigWord;
     strcpy(pP, englishWord + 1); //from 1st character of englishWord
     *(pP + length - 1) = tolower(*englishWord); //access string like array
-    strcpy(pP + length, ending); //copy ending to pointer (no '\0')
+    strcpy(pP + length, ENDING); //copy ending to pointer (no '\0')
     if (isupper(*englishWord))
     {
-        pigWord[0] = toupper(pigWord[0]);
+        *pigWord = toupper(*pigWord);
     }
 }
 
@@ -134,11 +135,11 @@ void englishToPigLatin(char englishWord[], char pigWord[])
  */
 void pigLatinToEnglish(char *pigWord, char *englishWord)
 {
-    int fromEnd = 3, length = strlen(pigWord); //where the ending starts in Pig Latin
+    int length = strlen(pigWord), endingLength = strlen(ENDING); //where the ending starts in Pig Latin
     char *pE = englishWord;
-    *pE = pigWord[length - fromEnd];
+    *pE = *(pigWord + length - endingLength - 1);
     strcpy(pE + 1, pigWord);
-    englishWord[length - fromEnd + 1] = '\0';
+    *(englishWord + length - endingLength) = '\0';
     if (isupper(*pigWord))
     {
         *englishWord = toupper(*englishWord);
