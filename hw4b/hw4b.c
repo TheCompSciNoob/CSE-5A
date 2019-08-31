@@ -124,7 +124,7 @@ void englishToPigLatin(char englishWord[], char pigWord[])
     strcpy(pP, englishWord + 1); //from 1st character of englishWord
     *(pP + length - 1) = tolower(*englishWord); //access string like array
     strcpy(pP + length, ENDING); //copy ending to pointer (no '\0')
-    if (isupper(*englishWord))
+    if (isupper(*englishWord)) //lower case to upper case
     {
         *pigWord = toupper(*pigWord);
     }
@@ -137,10 +137,10 @@ void pigLatinToEnglish(char *pigWord, char *englishWord)
 {
     int length = strlen(pigWord), endingLength = strlen(ENDING); //where the ending starts in Pig Latin
     char *pE = englishWord;
-    *pE = *(pigWord + length - endingLength - 1);
-    strcpy(pE + 1, pigWord);
-    *(englishWord + length - endingLength) = '\0';
-    if (isupper(*pigWord))
+    *pE = *(pigWord + length - endingLength - 1); //3rd last character from pigWord
+    strcpy(pE + 1, pigWord); //copy the rest of pigWord into result
+    *(englishWord + length - endingLength) = '\0'; //remove ending that was copied in the previous step
+    if (isupper(*pigWord)) //lower case to upper case
     {
         *englishWord = toupper(*englishWord);
         *(englishWord + 1) = tolower(*(englishWord + 1));
