@@ -36,7 +36,7 @@ int main()
     while (!done)
     {
         displayMenu();
-        int input;
+        int value;
         char option;
         scanf("%c", &option);
         getchar();
@@ -45,9 +45,9 @@ int main()
             case 'a':
             case 'A':
                 printf("Enter item: ");
-                scanf("%d", &input);
+                scanf("%d", &value);
                 getchar();
-                addItemToEnd(array, &length, input);
+                addItemToEnd(array, &length, value);
                 break;
             case 'b':
             case 'B':
@@ -60,9 +60,9 @@ int main()
             case 'd':
             case 'D':
                 printf("Enter item: ");
-                scanf("%d", &input);
+                scanf("%d", &value);
                 getchar();
-                insertItemInFront(array, &length, input);
+                insertItemInFront(array, &length, value);
                 break;
             case 'e':
             case 'E':
