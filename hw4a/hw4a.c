@@ -48,14 +48,17 @@ int main()
                 scanf("%d", &value);
                 getchar();
                 addItemToEnd(array, &length, value);
+                displayList(array, length);
                 break;
             case 'b':
             case 'B':
                 removeLastItem(&length);
+                displayList(array, length);
                 break;
             case 'c':
             case 'C':
                 emptyList(&length);
+                displayList(array, length);
                 break;
             case 'd':
             case 'D':
@@ -63,10 +66,12 @@ int main()
                 scanf("%d", &value);
                 getchar();
                 insertItemInFront(array, &length, value);
+                displayList(array, length);
                 break;
             case 'e':
             case 'E':
                 removeFirstItem(array, &length);
+                displayList(array, length);
                 break;
             case 'q':
             case 'Q':
@@ -77,7 +82,6 @@ int main()
                 printf("Invalid command\n");
                 break;
         }
-        displayList(array, length);
     }
 
     printf("Press ENTER to exit!");
