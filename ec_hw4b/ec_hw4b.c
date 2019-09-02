@@ -97,35 +97,28 @@ void translatePhrase(_Bool translateEnglish)
     if (translateEnglish)
     {
         printf("\nEnter English phrases: \n");
-        char english[BUFFER], englishWord[BUFFER], pigWord[BUFFER];
-        while (fgets(english, BUFFER, stdin))
-        {
-            int offset;
-            char *pS = english;
-            while (sscanf(pS, "%s%n", englishWord, &offset) == 1)
-            {
-                englishToPigLatin(englishWord, pigWord);
-                printf("%s ", pigWord);
-                pS += offset;
-            }
-            printf("\n\n");
-        }
     } else
     {
         printf("\nEnter Pig Latin phrases: \n");
-        char pigLatin[BUFFER], pigWord[BUFFER], englishWord[BUFFER];
-        while (fgets(pigLatin, BUFFER, stdin))
+    }
+    char phrase[BUFFER], word[BUFFER], translatedWord[BUFFER];
+    while (fgets(phrase, BUFFER, stdin))
+    {
+        int offset;
+        char *pPhrase = phrase;
+        while (sscanf(pPhrase, "%s%n", word, &offset) == 1)
         {
-            int offset;
-            char *pS = pigLatin;
-            while (sscanf(pS, "%s%n", pigWord, &offset) == 1)
+            if (translateEnglish)
             {
-                pigLatinToEnglish(pigWord, englishWord);
-                printf("%s ", englishWord);
-                pS += offset;
+                englishToPigLatin(word, translatedWord);
+            } else
+            {
+                pigLatinToEnglish(word, translatedWord);
             }
-            printf("\n\n");
+            printf("%s ", translatedWord);
+            pPhrase += offset;
         }
+        printf("\n\n");
     }
 }
 
@@ -136,10 +129,9 @@ void translatePhrase(_Bool translateEnglish)
 void englishToPigLatin(char englishWord[], char pigWord[])
 {
     int length = strlen(englishWord);
-    char *pP = pigWord;
-    strcpy(pP, englishWord + 1); //from 1st character of englishWord
-    *(pP + length - 1) = tolower(*englishWord); //access string like array
-    strcpy(pP + length, ENDING); //copy ending to pointer (no '\0')
+    strcpy(pigWord, englishWord + 1); //from 1st character of englishWord
+    strcat(pigWord, (char[]) {tolower(*englishWord), '\0'}); //add character array
+    strcat(pigWord, ENDING); //add ending
     if (isupper(*englishWord)) //lower case to upper case
     {
         *pigWord = toupper(*pigWord);
@@ -152,9 +144,8 @@ void englishToPigLatin(char englishWord[], char pigWord[])
 void pigLatinToEnglish(char *pigWord, char *englishWord)
 {
     int length = strlen(pigWord), endingLength = strlen(ENDING); //where the ending starts in Pig Latin
-    char *pE = englishWord;
-    *pE = *(pigWord + length - endingLength - 1); //3rd last character from pigWord
-    strcpy(pE + 1, pigWord); //copy the rest of pigWord into result
+    *englishWord = *(pigWord + length - endingLength - 1); //3rd last character from pigWord
+    strcpy(englishWord + 1, pigWord); //copy the rest of pigWord into result
     *(englishWord + length - endingLength) = '\0'; //remove ending that was copied in the previous step
     if (isupper(*pigWord)) //lower case to upper case
     {
@@ -163,12 +154,18 @@ void pigLatinToEnglish(char *pigWord, char *englishWord)
     }
 }
 
+/*
+ * Evaluates whether a word is Pig Latin by its ending.
+ */
 _Bool isPigLatinWord(char word[])
 {
     int length = strlen(word);
     return length >= 3 && strcmp(word + length - strlen(ENDING), ENDING) == 0;
 }
 
+/*
+ * Evaluates whether a phrase is Pig Latin
+ */
 void isPigLatin()
 {
     printf("\nEnter phrases:\n");
@@ -176,16 +173,15 @@ void isPigLatin()
     while (fgets(phrase, BUFFER, stdin))
     {
         _Bool isPigLatin = 1;
-        int offset;
-        char *pS = phrase;
-        while (sscanf(pS, "%s%n", word, &offset) == 1)
+        int offset = 0;
+        while (sscanf(phrase + offset, "%s", word) == 1)
         {
             if (!isPigLatinWord(word))
             {
                 isPigLatin = 0;
                 break;
             }
-            pS += offset;
+            offset += strlen(word) + 1;
         }
         if (isPigLatin)
         {
@@ -197,6 +193,9 @@ void isPigLatin()
     }
 }
 
+/*
+ * Determines whether a phrase is English or Pig Latin and auto translates.
+ */
 void autoTranslatePhrase()
 {
     printf("\nEnter phrases:\n");
@@ -204,30 +203,31 @@ void autoTranslatePhrase()
     while (fgets(phrase, BUFFER, stdin))
     {
         _Bool isPigLatin = 1;
-        int offset;
-        char *pS = phrase;
-        while (sscanf(pS, "%s%n", word, &offset) == 1)
+        int offset = 0;
+        char result[BUFFER] = "";
+        while (sscanf(phrase + offset, "%s", word) == 1) //loop to see if the phrase is Pig Latin
         {
-            if (!isPigLatinWord(word))
-            {
-                isPigLatin = 0;
-                break;
-            }
-            pS += offset;
-        }
-        pS = phrase;
-        while (sscanf(pS, "%s%n", word, &offset) == 1)
-        {
+            //assume it's Pig Latin first, reset if not Pig Latin later
             if (isPigLatin)
             {
+                //reset if not Pig Latin
+                if (!isPigLatinWord(word))
+                {
+                    isPigLatin = 0;
+                    *result = '\0';
+                    offset = 0;
+                    continue; //skip translation if not Pig Latin word
+                }
                 pigLatinToEnglish(word, wordTranslation);
+
             } else
             {
                 englishToPigLatin(word, wordTranslation);
             }
-            printf("%s ", wordTranslation);
-            pS += offset;
+            strcat(result, wordTranslation);
+            strcat(result, " "); //separate the words
+            offset += strlen(word) + 1;
         }
-        printf("\n\n");
+        printf("%s\n\n", result);
     }
 }
