@@ -80,36 +80,29 @@ void translatePhrase(_Bool translateEnglish)
 {
     if (translateEnglish)
     {
-        char english[BUFFER], englishWord[BUFFER], pigWord[BUFFER];
         printf("\nEnter English phrases: \n");
-        while (fgets(english, BUFFER, stdin))
-        {
-            int offset;
-            char *pS = english;
-            while (sscanf(pS, "%s%n", englishWord, &offset) == 1)
-            {
-                englishToPigLatin(englishWord, pigWord);
-                printf("%s ", pigWord);
-                pS += offset;
-            }
-            printf("\n\n");
-        }
     } else
     {
-        char pigLatin[BUFFER], pigWord[BUFFER], englishWord[BUFFER];
         printf("\nEnter Pig Latin phrases: \n");
-        while (fgets(pigLatin, BUFFER, stdin))
+    }
+    char phrase[BUFFER], word[BUFFER], translatedWord[BUFFER];
+    while (fgets(phrase, BUFFER, stdin))
+    {
+        int offset;
+        char *pPhrase = phrase;
+        while (sscanf(pPhrase, "%s%n", word, &offset) == 1)
         {
-            int offset;
-            char *pS = pigLatin;
-            while (sscanf(pS, "%s%n", pigWord, &offset) == 1)
+            if (translateEnglish)
             {
-                pigLatinToEnglish(pigWord, englishWord);
-                printf("%s ", englishWord);
-                pS += offset;
+                englishToPigLatin(word, translatedWord);
+            } else
+            {
+                pigLatinToEnglish(word, translatedWord);
             }
-            printf("\n\n");
+            printf("%s ", translatedWord);
+            pPhrase += offset;
         }
+        printf("\n\n");
     }
 }
 
@@ -119,11 +112,9 @@ void translatePhrase(_Bool translateEnglish)
  */
 void englishToPigLatin(char englishWord[], char pigWord[])
 {
-    int length = strlen(englishWord);
-    char *pP = pigWord;
-    strcpy(pP, englishWord + 1); //from 1st character of englishWord
-    *(pP + length - 1) = tolower(*englishWord); //access string like array
-    strcpy(pP + length, ENDING); //copy ending to pointer (no '\0')
+    strcpy(pigWord, englishWord + 1); //from 1st character of englishWord
+    strcat(pigWord, (char[]) {tolower(*englishWord), '\0'}); //add character array
+    strcat(pigWord, ENDING); //add ending
     if (isupper(*englishWord)) //lower case to upper case
     {
         *pigWord = toupper(*pigWord);
