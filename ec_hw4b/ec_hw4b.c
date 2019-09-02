@@ -128,7 +128,6 @@ void translatePhrase(_Bool translateEnglish)
  */
 void englishToPigLatin(char englishWord[], char pigWord[])
 {
-    int length = strlen(englishWord);
     strcpy(pigWord, englishWord + 1); //from 1st character of englishWord
     strcat(pigWord, (char[]) {tolower(*englishWord), '\0'}); //add character array
     strcat(pigWord, ENDING); //add ending
