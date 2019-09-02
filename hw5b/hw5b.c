@@ -95,22 +95,16 @@ void encrypt(int shift, char *input, char *result)
     while (shift < 0) shift += numLetters; //convert to positive shift (easier to handle)
     for (i = 0; i < inputLength; i++)
     {
-        int letterIndex = -1;
-        if (isupper(input[i]))
-        {
-            letterIndex = input[i] - 'A';
-        } else if (islower(input[i]))
-        {
-            letterIndex = input[i] - 'a';
-        }
+        int letterIndex = tolower(input[i]) - 'a';
         if (letterIndex >= 0 && letterIndex < numLetters)
         {
+            char letter = LETTERS[(letterIndex + shift) % numLetters];
             if (isupper(input[i]))
             {
-                result[i] = toupper(LETTERS[(letterIndex + shift) % numLetters]);
+                result[i] = toupper(letter);
             } else if (islower(input[i]))
             {
-                result[i] = tolower(LETTERS[(letterIndex + shift) % numLetters]);
+                result[i] = tolower(letter);
             }
         } else
         {
