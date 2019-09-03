@@ -105,10 +105,10 @@ void addItem(struct Item items[], int *pLength)
 {
     struct Item newItem;
     printf("\nAdd item\n");
-    printf("Enter the name of the item: ");
+    printf("Enter name of the item: ");
     scanf("%s", newItem.name);
     getchar();
-    printf("Enter the quantity of the item: ");
+    printf("Enter quantity of the item: ");
     scanf("%d", &newItem.quantity);
     getchar();
     printf("Enter price of item: ");
