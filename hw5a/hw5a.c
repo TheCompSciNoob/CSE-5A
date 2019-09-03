@@ -103,17 +103,31 @@ _Bool getChoice(struct Item items[], int *pLength)
  */
 void addItem(struct Item items[], int *pLength)
 {
-    struct Item newItem;
+    struct Item newItem = {
+            .name = "",
+            .quantity = -1,
+            .price = 0
+    };
     printf("\nAdd item\n");
     printf("Enter name of item: ");
     scanf("%s", newItem.name);
     getchar();
-    printf("Enter quantity of item: ");
-    scanf("%d", &newItem.quantity);
-    getchar();
-    printf("Enter price of item: ");
-    scanf("%lf", &newItem.price);
-    getchar();
+    while (1)
+    {
+        printf("Enter quantity of item: ");
+        scanf("%d", &newItem.quantity);
+        getchar();
+        if (newItem.quantity >= 0) break;
+        printf("Quantity cannot be less than 0\n");
+    }
+    while (1)
+    {
+        printf("Enter price of item: ");
+        scanf("%lf", &newItem.price);
+        getchar();
+        if (newItem.price > 0) break;
+        printf("Price must be greater than 0\n");
+    }
     printf("\n");
 
     items[*pLength] = newItem;
