@@ -104,9 +104,8 @@ void translatePhrase(_Bool translateEnglish)
     char phrase[BUFFER], word[BUFFER], translatedWord[BUFFER];
     while (fgets(phrase, BUFFER, stdin))
     {
-        int offset;
-        char *pPhrase = phrase;
-        while (sscanf(pPhrase, "%s%n", word, &offset) == 1)
+        int offset = 0;
+        while (sscanf(phrase + offset, "%s", word) == 1)
         {
             if (translateEnglish)
             {
@@ -116,7 +115,7 @@ void translatePhrase(_Bool translateEnglish)
                 pigLatinToEnglish(word, translatedWord);
             }
             printf("%s ", translatedWord);
-            pPhrase += offset;
+            offset += strlen(word) + 1;
         }
         printf("\n\n");
     }
