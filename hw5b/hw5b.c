@@ -16,16 +16,12 @@
 #define ERROR_MSG_INV_INT "The argument is not a valid integer"
 
 #define LETTERS "abcdefghijklmnopqrstuvwxyz"
-#define MIN_ARGS 2
-#define MAX_ARGS 3
 
 void printErrorMessages(char *message);
 
 void printCipher(int shift, int lowerCase);
 
 void encrypt(int shift, char *input, char *result);
-
-_Bool stringToInt(char string[], int *result);
 
 /*
  * Caesar Cipher
@@ -36,7 +32,7 @@ int main(int argc, char *argv[])
     switch (argc)
     {
         case 2:
-            if (!stringToInt(argv[1], &shift))
+            if (sscanf(argv[1], "%d", &shift) != 1)
             {
                 printErrorMessages(ERROR_MSG_INV_INT);
                 return 1;
@@ -48,7 +44,7 @@ int main(int argc, char *argv[])
             printCipher(shift, 0);
             break;
         case 3:
-            if (!stringToInt(argv[1], &shift))
+            if (sscanf(argv[1], "%d", &shift) != 1)
             {
                 printErrorMessages(ERROR_MSG_INV_INT);
                 return 1;
@@ -112,33 +108,4 @@ void encrypt(int shift, char *input, char *result)
         }
     }
     result[inputLength] = '\0';
-}
-
-_Bool stringToInt(char string[], int *result)
-{
-    int base = 10, _result = 0;
-    _Bool isNegative = 0;
-    char *pS = string;
-    if (*string == '-')
-    {
-        pS++;
-        isNegative = 1;
-    }
-    for (; *pS; pS++)
-    {
-        if (!isdigit(*pS))
-        {
-            return 0;
-        }
-        _result *= base;
-        _result += *pS - '0';
-    }
-    if (isNegative)
-    {
-        *result = -_result;
-    } else
-    {
-        *result = _result;
-    }
-    return 1;
 }
