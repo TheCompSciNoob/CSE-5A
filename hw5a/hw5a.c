@@ -154,14 +154,14 @@ void purchaseItem(struct Item items[], int length)
         } else if (itemIndex > 0 && itemIndex <= length)
         {
             struct Item *item = &items[itemIndex - 1];
-            if ((*item).quantity > 0)
+            if (item->quantity > 0)
             {
-                (*item).quantity--;
-                printf("\n%s was purchased for $%.2f\n", (*item).name, (*item).price);
-                printf("%d remaining\n", (*item).quantity);
+                item->quantity--;
+                printf("\n%s was purchased for $%.2f\n", item->name, item->price);
+                printf("%d remaining\n", item->quantity);
             } else
             {
-                printf("\nThere are no more %s(s) in stock\n", (*item).name);
+                printf("\nThere are no more %s(s) in stock\n", item->name);
             }
         } else
         {
