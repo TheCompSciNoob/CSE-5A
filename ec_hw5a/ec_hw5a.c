@@ -178,14 +178,14 @@ void purchaseItem(struct Item items[], int length)
         } else if (itemIndex > 0 && itemIndex <= length)
         {
             struct Item *item = &items[itemIndex - 1];
-            if ((*item).quantity > 0)
+            if (item->quantity > 0)
             {
-                (*item).quantity--;
-                printf("\n%s was purchased for $%.2f\n", (*item).name, (*item).price);
-                printf("%d remaining\n", (*item).quantity);
+                item->quantity--;
+                printf("\n%s was purchased for $%.2f\n", item->name, item->price);
+                printf("%d remaining\n", item->quantity);
             } else
             {
-                printf("\nThere are no more %s(s) in stock\n", (*item).name);
+                printf("\nThere are no more %s(s) in stock\n", item->name);
             }
         } else
         {
@@ -314,17 +314,17 @@ void purchaseItemsWithReceipt(struct Item *items, int size)
         } else if (itemIndex > 0 && itemIndex <= size)
         {
             struct Item *item = &items[itemIndex - 1];
-            if ((*item).quantity > 0)
+            if (item->quantity > 0)
             {
                 //add item to receipt
                 sprintf(receipt + strlen(receipt), "%s\t\t\t\t\t$%8.2f\n", item->name, item->price);
                 total += item->price;
                 //update inventory
-                (*item).quantity--;
-                printf("\n%d remaining\n", (*item).quantity);
+                item->quantity--;
+                printf("\n%d remaining\n", item->quantity);
             } else
             {
-                printf("\nThere are no more %s(s) in stock\n", (*item).name);
+                printf("\nThere are no more %s(s) in stock\n", item->name);
             }
         } else
         {
