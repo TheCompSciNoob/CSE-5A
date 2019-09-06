@@ -127,19 +127,19 @@ _Bool getChoice(struct Item items[], int *pLength)
  */
 void addItem(struct Item items[], int *pLength)
 {
-    struct Item newItem = {
+    struct Item newItem = { //new item to be added to the list
             .name = "",
             .quantity = -1,
             .price = 0
     };
     printf("\nAdd item\n");
     printf("Enter name of item: ");
-    scanf("%s", newItem.name);
+    scanf("%s", newItem.name); //add name to struct
     getchar();
     while (1)
     {
         printf("Enter quantity of item: ");
-        scanf("%d", &newItem.quantity);
+        scanf("%d", &newItem.quantity); //add quantity to struct
         getchar();
         if (newItem.quantity >= 0) break;
         printf("Quantity cannot be less than 0\n");
@@ -147,14 +147,14 @@ void addItem(struct Item items[], int *pLength)
     while (1)
     {
         printf("Enter price of item: ");
-        scanf("%lf", &newItem.price);
+        scanf("%lf", &newItem.price); //add price to struct
         getchar();
         if (newItem.price > 0) break;
         printf("Price must be greater than 0\n");
     }
     printf("\n");
 
-    items[*pLength] = newItem;
+    items[*pLength] = newItem; //add item to list
     (*pLength)++;
 }
 
@@ -180,10 +180,10 @@ void purchaseItem(struct Item items[], int length)
             struct Item *item = &items[itemIndex - 1];
             if (item->quantity > 0)
             {
-                item->quantity--;
+                item->quantity--; //update inventory quantity
                 printf("\n%s was purchased for $%.2f\n", item->name, item->price);
                 printf("%d remaining\n", item->quantity);
-            } else
+            } else //when no more items can be purchased
             {
                 printf("\nThere are no more %s(s) in stock\n", item->name);
             }
@@ -219,10 +219,13 @@ void emailReceipt()
     printf("Enter name to send email to: ");
     char name[NAME_SIZE], *p = name;
     scanf("%s", name);
-    for (; *p; p++) *p = tolower(*p);
+    for (; *p; p++) *p = tolower(*p); //convert all letters entered to lower case
     printf("\nEmail transaction sent to %s@ucsd.edu\n\n", name);
 }
 
+/*
+ * Finds name of item in lists and changes the quantity and price.
+ */
 void updateItem(struct Item items[], int *pSize)
 {
     printf("\nUpdate Item\n");
@@ -233,12 +236,12 @@ void updateItem(struct Item items[], int *pSize)
     int i;
     for (i = 0; i < *pSize; i++)
     {
-        if (strcmp(items[i].name, name) == 0)
+        if (strcmp(items[i].name, name) == 0) //find user specified item
         {
             while (1)
             {
                 printf("Enter quantity of item: ");
-                scanf("%d", &items[i].quantity);
+                scanf("%d", &items[i].quantity); //change quantity
                 getchar();
                 if (items[i].quantity >= 0) break;
                 printf("Quantity cannot be less than 0\n");
@@ -246,19 +249,22 @@ void updateItem(struct Item items[], int *pSize)
             while (1)
             {
                 printf("Enter price of item: ");
-                scanf("%lf", &items[i].price);
+                scanf("%lf", &items[i].price); //change price
                 getchar();
                 if (items[i].price > 0) break;
                 printf("Price must be greater than 0\n");
             }
             printf("\n");
-            return;
+            return; //return after done updating the item
         }
     }
     //name does not exist
     printf("Could not find item\n\n");
 }
 
+/*
+ * Remove item from inventory.
+ */
 void removeItem(struct Item items[], int *pSize)
 {
     printf("\nRemove Item");
@@ -273,12 +279,12 @@ void removeItem(struct Item items[], int *pSize)
         {
             printf("\n");
             break;
-        } else if (itemIndex > 0 && itemIndex <= *pSize)
+        } else if (itemIndex > 0 && itemIndex <= *pSize) //shift items to replace removed item
         {
             int i;
             for (i = itemIndex - 1; i < *pSize - 1; i++)
             {
-                swapItem(&items[i], &items[i + 1]);
+                swapItem(&items[i], &items[i + 1]); //why tho, could've just done items[i] = items[i + 1]
             }
             (*pSize)--;
         } else
@@ -288,6 +294,9 @@ void removeItem(struct Item items[], int *pSize)
     }
 }
 
+/*
+ * Swap the contents of two items.
+ */
 void swapItem(struct Item *p1, struct Item *p2)
 {
     struct Item temp = *p1;
@@ -295,6 +304,9 @@ void swapItem(struct Item *p1, struct Item *p2)
     *p2 = temp;
 }
 
+/*
+ * Similar to purchaseItems() but also prints a receipt
+ */
 void purchaseItemsWithReceipt(struct Item *items, int size)
 {
     printf("\nPurchase Item with Receipt");
@@ -338,6 +350,9 @@ void purchaseItemsWithReceipt(struct Item *items, int size)
     printReceipt(receipt);
 }
 
+/*
+ * Prints receipt if the string length > 0.
+ */
 void printReceipt(char *pReceipt)
 {
     if (strlen(pReceipt) > 0)

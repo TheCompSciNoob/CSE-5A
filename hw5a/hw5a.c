@@ -103,19 +103,19 @@ _Bool getChoice(struct Item items[], int *pLength)
  */
 void addItem(struct Item items[], int *pLength)
 {
-    struct Item newItem = {
+    struct Item newItem = { //new item to be added to the list
             .name = "",
             .quantity = -1,
             .price = 0
     };
     printf("\nAdd item\n");
     printf("Enter name of item: ");
-    scanf("%s", newItem.name);
+    scanf("%s", newItem.name); //add name to struct
     getchar();
     while (1)
     {
         printf("Enter quantity of item: ");
-        scanf("%d", &newItem.quantity);
+        scanf("%d", &newItem.quantity); //add quantity to struct
         getchar();
         if (newItem.quantity >= 0) break;
         printf("Quantity cannot be less than 0\n");
@@ -123,14 +123,14 @@ void addItem(struct Item items[], int *pLength)
     while (1)
     {
         printf("Enter price of item: ");
-        scanf("%lf", &newItem.price);
+        scanf("%lf", &newItem.price); //add price to struct
         getchar();
         if (newItem.price > 0) break;
         printf("Price must be greater than 0\n");
     }
     printf("\n");
 
-    items[*pLength] = newItem;
+    items[*pLength] = newItem; //add item to list
     (*pLength)++;
 }
 
@@ -156,14 +156,14 @@ void purchaseItem(struct Item items[], int length)
             struct Item *item = &items[itemIndex - 1];
             if (item->quantity > 0)
             {
-                item->quantity--;
+                item->quantity--; //update inventory quantity
                 printf("\n%s was purchased for $%.2f\n", item->name, item->price);
                 printf("%d remaining\n", item->quantity);
             } else
             {
                 printf("\nThere are no more %s(s) in stock\n", item->name);
             }
-        } else
+        } else //when no more items can be purchased
         {
             printf("\nInvalid item\n");
         }
@@ -195,6 +195,6 @@ void emailReceipt()
     printf("Enter name to send email to: ");
     char name[NAME_SIZE], *p = name;
     scanf("%s", name);
-    for (; *p; p++) *p = tolower(*p);
+    for (; *p; p++) *p = tolower(*p); //convert all letters entered to lower case
     printf("\nEmail transaction sent to %s@ucsd.edu\n\n", name);
 }
